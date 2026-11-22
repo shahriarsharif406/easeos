@@ -1,0 +1,34 @@
+/* Low-vision (approximate simulation) */
+.lens-lowvision #screen { filter: blur(1.6px) contrast(.8) brightness(1.04); }
+#lv-vignette { display: none; }
+.lens-lowvision #lv-vignette {
+  display: block; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(43,38,32,.55) 100%);
+}
+
+/* Dyslexia-friendly */
+.lens-dyslexia {
+  --font-body: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-display: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --lh: 1.8;
+}
+.lens-dyslexia body { background: var(--bg-dyslexia); letter-spacing: .04em; word-spacing: .16em; line-height: 1.8; text-align: left; }
+.lens-dyslexia #app, .lens-dyslexia #app * { font-style: normal !important; text-transform: none !important; }
+.lens-dyslexia #app p, .lens-dyslexia #app li, .lens-dyslexia #app .task-title { max-width: 60ch; }
+.lens-dyslexia h1, .lens-dyslexia h2, .lens-dyslexia h3 { font-variation-settings: normal; letter-spacing: .02em; }
+
+/* Calm */
+.lens-calm #app, .lens-calm #app *, .lens-calm #app *::before, .lens-calm #app *::after { animation: none !important; transition-duration: .01ms !important; }
+.lens-calm [data-fx-noise] { display: none !important; }
+.lens-calm { --ochre: #5E554A; --sage: #5E554A; --plum: #5E554A; --dusk: #5E554A; --rose: #5E554A; }
+.lens-calm .chip, .lens-calm .habit-chip[aria-pressed="true"] { background: var(--surface-2); border-color: var(--line); color: var(--ink-2); }
+.lens-calm .intro { background: var(--surface-2); border-color: var(--line); }
+.lens-calm .lens-banner { background: var(--surface-2); border-color: var(--line); }
+.lens-calm .progress-fill, .lens-calm .check input:checked { background: var(--ink-2); border-color: var(--ink-2); }
+.lens-calm .toggle-btn[aria-pressed="true"] { background: var(--ink-2); border-color: var(--ink-2); }
+.lens-calm .bar { background: var(--ink-2); }
+
+/* Keyboard-only (simulates having no mouse) */
+.lens-keyboard #screen, .lens-keyboard .tabs { pointer-events: none; cursor: none; }
+.lens-keyboard :focus-visible { outline: 4px solid var(--clay); outline-offset: 3px; box-shadow: none; }
+.lens-keyboard .skip { top: 12px; }

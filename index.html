@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" data-energy="normal">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EaseOS: productivity that gets lighter when you do</title>
+  <meta name="description" content="EaseOS is a tiny planner (Today, Habits, Focus) that measures its own friction live and simplifies itself to match your energy.">
+  <meta name="theme-color" content="#F6F1E7">
+  <meta property="og:title" content="EaseOS: productivity that gets lighter when you do">
+  <meta property="og:description" content="A planner with a live Friction Meter. Slide Energy to Low and it shrinks to one task.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..600,50&family=Figtree:wght@400;500;600&family=Lexend:wght@400;500&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/energy.css">
+  <link rel="stylesheet" href="css/lenses.css">
+</head>
+<body>
+<a class="skip" href="#screen">Skip to main</a>
+
+<div id="app">
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="brand"><img src="assets/logo.svg" alt="" width="32" height="32"><span class="wordmark">Ease<span>OS</span></span></div>
+      <span class="clock" id="clock" data-min-energy="normal" aria-hidden="true">00:00</span>
+    </div>
+    <div class="hdr-mid"><p class="tagline" data-min-energy="high">Productivity that gets lighter when you do.</p></div>
+
+    <div class="energy-row">
+      <span class="energy-cap" aria-hidden="true">Energy</span>
+      <fieldset class="energy" data-fx-region>
+        <legend class="sr-only">Energy</legend>
+        <div class="energy-track" role="radiogroup" aria-label="Energy level">
+          <span class="energy-thumb" aria-hidden="true"></span>
+          <input type="radio" name="energy" id="en-low" value="low"><label for="en-low">Low</label>
+          <input type="radio" name="energy" id="en-normal" value="normal"><label for="en-normal">Normal</label>
+          <input type="radio" name="energy" id="en-high" value="high"><label for="en-high">High</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="meter" data-fx-ignore>
+      <div class="ring" id="ring" role="img" aria-label="Friction 0 of 100" data-band="low" data-score="0">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle class="track" cx="32" cy="32" r="26" stroke-width="6"/><circle class="arc" id="ring-arc" cx="32" cy="32" r="26" stroke-width="6"/></svg>
+        <span class="ring-num" id="ring-num" aria-hidden="true">0</span>
+      </div>
+      <div class="meter-text"><span class="meter-name">Friction</span><span class="meter-label" id="meter-label">Light</span></div>
+      <button type="button" class="icon-btn meter-help" id="meter-help" aria-label="How is this calculated?"><span class="help-q" aria-hidden="true">?</span><span class="tip" aria-hidden="true">How is this calculated?</span></button>
+      <span class="sr-only" id="meter-live" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <div class="body">
+    <nav class="tabs" aria-label="Main" data-min-energy="normal">
+      <a href="#/today" data-nav="today">Today</a>
+      <a href="#/habits" data-nav="habits">Habits</a>
+      <a href="#/focus" data-nav="focus">Focus</a>
+      <a href="#/about" data-nav="about">About</a>
+    </nav>
+
+    <div class="content">
+      <div class="lens-bar" id="lens-bar">
+        <div class="lens-bar-full" data-min-energy="normal" style="display:contents">
+          <span class="lens-label" id="lens-label">Lenses</span>
+          <button type="button" class="lens-btn" data-lens="lowvision" aria-pressed="false" title="Low-vision (approx.)" aria-describedby="lens-approx">Low-vision</button>
+          <button type="button" class="lens-btn" data-lens="dyslexia" aria-pressed="false" title="Dyslexia-friendly (approx.)" aria-describedby="lens-approx">Dyslexia-friendly</button>
+          <button type="button" class="lens-btn" data-lens="calm" aria-pressed="false" title="Calm (approx.)" aria-describedby="lens-approx">Calm</button>
+          <button type="button" class="lens-btn" data-lens="keyboard" aria-pressed="false" title="Keyboard-only (approx.)" aria-describedby="lens-approx">Keyboard-only</button>
+        </div>
+        <div data-only-energy="low" style="display:contents">
+          <button type="button" class="lens-btn" id="lens-open" aria-expanded="false" aria-controls="lens-pop" aria-describedby="lens-approx">Lenses</button>
+        </div>
+        <div class="lens-pop" id="lens-pop" hidden data-only-energy="low">
+          <h2>Lenses (approx.)</h2>
+          <button type="button" class="lens-btn" data-lens="lowvision" aria-pressed="false" aria-describedby="lens-approx">Low-vision</button>
+          <button type="button" class="lens-btn" data-lens="dyslexia" aria-pressed="false" aria-describedby="lens-approx">Dyslexia-friendly</button>
+          <button type="button" class="lens-btn" data-lens="calm" aria-pressed="false" aria-describedby="lens-approx">Calm</button>
+          <button type="button" class="lens-btn" data-lens="keyboard" aria-pressed="false" aria-describedby="lens-approx">Keyboard-only</button>
+          <p class="pages"><a href="#/today">Today</a><a href="#/habits">Habits</a><a href="#/focus">Focus</a><a href="#/about">About</a></p>
+        </div>
+        <span class="sr-only" id="lens-approx">Approximate simulation.</span>
+      </div>
+
+      <div class="lens-banner" id="lens-banner" role="status" hidden>
+        <p><strong>Approximate simulation.</strong> Real experiences vary widely. This is a design aid, not a diagnosis or a substitute for testing with disabled people.</p>
+        <button type="button" class="btn btn-secondary btn-sm" id="lens-off">Turn off lenses</button>
+        <p class="kb-count" id="kb-count" hidden></p>
+        <p class="kb-count" id="lv-note" hidden>Can you still find the main button?</p>
+      </div>
+
+      <main id="screen" tabindex="-1">
+
+        <!-- TODAY -->
+        <section data-route="today" aria-label="Today">
+          <h1 class="sr-only" tabindex="-1">Today</h1>
+          <div class="intro" id="intro" data-fx-region data-min-energy="high">
+            <p>A tiny planner (Today, Habits, Focus) with a <strong>Friction Meter</strong> that scores how heavy the screen is. Slide <strong>Energy</strong> to Low and the app shrinks to one task. The score drops, and you can see why.</p>
+            <button type="button" class="btn btn-secondary" id="intro-dismiss">Got it</button>
+          </div>
+          <p class="date-line" id="date-line" data-min-energy="normal">&nbsp;</p>
+
+          <div class="today-grid">
+            <div class="col" data-min-energy="normal">
+              <div class="card qa" data-fx-region>
+                <form id="qa-form" novalidate>
+                  <input class="field field-grow" id="qa-title" aria-label="New task" placeholder="Add a task…" autocomplete="off" maxlength="140">
+                  <select class="field" id="qa-priority" aria-label="Priority" data-min-energy="high">
+                    <option value="low">Low</option><option value="med" selected>Med</option><option value="high">High</option>
+                  </select>
+                  <button class="btn btn-primary" type="submit" data-primary-action>Add</button>
+                </form>
+                <p class="form-msg" id="qa-msg" role="alert" hidden></p>
+              </div>
+
+              <section class="card" data-fx-region aria-labelledby="tasks-h">
+                <div class="card-head"><h2 id="tasks-h">Today's tasks</h2><span class="muted small" id="tasks-count">0 open</span></div>
+                <p class="muted small" data-min-energy="high" style="margin:-6px 0 var(--s-2)">Pinned first, then by priority, then oldest.</p>
+                <ul class="task-list" id="task-list"></ul>
+                <button type="button" class="btn btn-ghost btn-sm more-btn" id="more-btn" hidden data-fx-noise>+0 more</button>
+                <details class="done-wrap" id="done-wrap" data-min-energy="high">
+                  <summary id="done-sum">Done today (0)</summary>
+                  <ul class="task-list" id="done-list"></ul>
+                  <div class="done-actions"><button type="button" class="btn btn-ghost btn-sm" id="clear-done">Clear completed</button></div>
+                </details>
+              </section>
+            </div>
+
+            <div class="col" data-min-energy="normal">
+              <section class="card" id="habit-strip" data-fx-region data-min-energy="high" aria-labelledby="hs-h">
+                <div class="card-head"><h2 id="hs-h">Habits</h2><span class="muted small" id="habit-count">0 of 0 today</span></div>
+                <p class="muted small" style="margin:-6px 0 var(--s-3)">Tap a habit to mark it for today.</p>
+                <div class="habit-chips" id="habit-chips"></div>
+                <div class="progress" aria-hidden="true"><div class="progress-fill" id="habit-fill"><span class="shimmer"></span></div></div>
+              </section>
+
+              <section class="card habit-summary" data-fx-region data-only-energy="normal" aria-label="Habit summary">
+                <p id="habit-summary-text">0 of 0 habits today</p>
+                <a class="btn btn-secondary btn-sm" href="#/habits">See habits</a>
+              </section>
+
+              <section class="card" data-fx-region aria-labelledby="fm-h">
+                <div class="focus-mini">
+                  <div><h2 id="fm-h">Focus</h2><p class="digits" data-focus-digits>25:00</p></div>
+                  <button type="button" class="btn btn-secondary" data-focus-main aria-pressed="false">Start</button>
+                </div>
+              </section>
+
+              <section class="card" data-fx-region data-min-energy="high" aria-labelledby="st-h">
+                <div class="card-head"><h2 id="st-h">This week</h2></div>
+                <div class="stat-row">
+                  <div class="stat"><b id="stat-done">0</b><span>tasks done today</span></div>
+                  <div class="stat"><b id="stat-focus">0</b><span>focus minutes today</span></div>
+                </div>
+                <p class="muted small" style="margin-bottom:var(--s-2)">Focus minutes, last seven days</p>
+                <div class="bars" id="bars"></div>
+                <div class="tip-card"><b>Tip of the day</b><span id="tip-text"></span></div>
+              </section>
+
+              <section class="card coming" data-fx-region data-min-energy="high" aria-labelledby="cu-h">
+                <div class="card-head"><h2 id="cu-h">Coming up</h2></div>
+                <ul id="coming-list"></ul>
+              </section>
+            </div>
+          </div>
+
+          <div class="low-center">
+            <div class="card one-task" id="one-task" data-only-energy="low" data-fx-region></div>
+          </div>
+        </section>
+
+        <!-- HABITS -->
+        <section data-route="habits" aria-label="Habits" hidden>
+          <div class="page-head"><h1 tabindex="-1">Habits</h1><p data-min-energy="normal">Small things you repeat. Mark today, watch the streak grow, miss a day without drama.</p></div>
+          <form class="card habit-form" id="habit-form" data-fx-region data-min-energy="normal" novalidate>
+            <div class="row">
+              <input class="field field-grow" id="habit-name" aria-label="Habit name" placeholder="New habit, e.g. Stretch 5 min" autocomplete="off" maxlength="60" style="flex:1 1 220px">
+              <button class="btn btn-primary" type="submit" data-primary-action>Add habit</button>
+            </div>
+            <fieldset class="swatches" id="swatches-fs"><legend>Colour</legend><span id="swatches" style="display:contents"></span></fieldset>
+            <p class="form-msg" id="habit-msg" role="alert" hidden></p>
+          </form>
+          <div class="card" data-fx-region data-min-energy="normal" style="margin-top:var(--gap)"><ul class="habit-list" id="habit-list" style="margin-top:0"></ul></div>
+          <div data-only-energy="low" data-fx-region><div class="big-list" id="habit-low"></div></div>
+        </section>
+
+        <!-- FOCUS -->
+        <section data-route="focus" aria-label="Focus" hidden>
+          <div class="page-head"><h1 tabindex="-1">Focus</h1><p data-min-energy="normal">One timer. Pick a length, press start, and let the rest wait.</p></div>
+          <div class="card focus-big" data-fx-region>
+            <div class="presets" data-min-energy="normal" role="group" aria-label="Session length">
+              <button type="button" class="btn btn-secondary" data-preset="10" aria-pressed="false">10 min</button>
+              <button type="button" class="btn btn-secondary" data-preset="25" aria-pressed="true">25 min</button>
+              <button type="button" class="btn btn-secondary" data-preset="50" aria-pressed="false">50 min</button>
+            </div>
+            <div class="focus-ring">
+              <svg viewBox="0 0 220 220" aria-hidden="true"><circle class="track" cx="110" cy="110" r="100" stroke-width="10"/><circle class="arc" id="focus-arc" cx="110" cy="110" r="100" stroke-width="10"/></svg>
+              <p class="digits" data-focus-digits role="timer" aria-label="Time remaining">25:00</p>
+            </div>
+            <div class="focus-actions">
+              <button type="button" class="btn btn-primary" data-focus-main data-min-energy="normal" data-primary-action aria-pressed="false">Start</button>
+              <button type="button" class="btn btn-primary big-start" data-focus-main data-low-label data-only-energy="low" data-primary-action aria-pressed="false">Start 10 min</button>
+              <button type="button" class="btn btn-secondary" id="f-reset" data-min-energy="normal" disabled>Reset</button>
+            </div>
+          </div>
+          <div class="card" data-fx-region data-min-energy="high" style="margin-top:var(--gap)">
+            <div class="card-head"><h2>Recent sessions</h2></div>
+            <ul class="session-list" id="session-list"></ul>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section data-route="about" aria-label="About" hidden>
+          <div class="page-head"><h1 tabindex="-1">How EaseOS works</h1></div>
+          <div class="about-grid">
+            <article class="card" data-fx-region>
+              <h2>Why</h2>
+              <p>Planners add screens, badges and choices. On a bad day that is the opposite of help.</p>
+              <p>EaseOS does the reverse: you say how much energy you have, and the app gets smaller to match.</p>
+            </article>
+            <article class="card" data-fx-region>
+              <h2>The Friction Meter</h2>
+              <p>It scores the screen from 0 to 100 across six weighted factors, measured from the live page.</p>
+              <p><code>30·I + 20·W + 15·K + 10·V + 10·C + 15·M</code>, each factor capped at its limit.</p>
+              <button type="button" class="btn btn-secondary btn-sm" data-open-explain>See the live breakdown</button>
+            </article>
+            <article class="card" data-fx-region>
+              <h2>Lenses are approximate</h2>
+              <p>Low-vision, Dyslexia-friendly, Calm and Keyboard-only views are design aids, not diagnoses. Real experiences vary widely, and nothing replaces testing with disabled people.</p>
+            </article>
+          </div>
+          <div class="card" data-fx-region>
+            <h2>Honest limits</h2>
+            <ul class="honesty">
+              <li><b>Your data stays on this device.</b> LocalStorage only: no sync, no account, and clearing browser data erases it.</li>
+              <li><b>The score is a heuristic.</b> Fixed, published weights over the live page. It does not measure your fatigue, and the weights are design judgements.</li>
+              <li><b>Energy is self-reported.</b> EaseOS never guesses how you feel.</li>
+              <li><b>The meter excludes itself</b> (the ring and its dialog), but counts content scrolled off-screen.</li>
+            </ul>
+            <p class="built">Built with plain HTML, CSS and JavaScript, AI-assisted (see the README). Source on <a href="https://github.com/shahriarsharif406/easeos" rel="noopener">GitHub</a>.</p>
+          </div>
+        </section>
+      </main>
+
+      <div class="card footer-low" data-only-energy="low" data-fx-region>
+        <span class="muted">Your data stays on this device.</span>
+        <button type="button" class="btn btn-secondary" id="show-all">Show everything</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="lv-vignette" aria-hidden="true"></div>
+
+<footer class="app-footer">
+  <span>Data stays on this device</span><span class="sep" aria-hidden="true">·</span>
+  <button type="button" class="link-btn" id="load-demo">Load demo data</button><span class="sep" aria-hidden="true">·</span>
+  <button type="button" class="link-btn" id="clear-all">Clear all data</button>
+</footer>
+
+<dialog id="dlg-confirm" aria-labelledby="dlg-confirm-title">
+  <form method="dialog">
+    <h2 id="dlg-confirm-title">Are you sure?</h2>
+    <p id="dlg-confirm-text"></p>
+    <div class="dlg-actions">
+      <button class="btn btn-secondary" value="cancel" id="dlg-cancel" autofocus>Cancel</button>
+      <button class="btn btn-primary" value="ok" id="dlg-ok">Confirm</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-explain" class="explain" data-fx-ignore aria-labelledby="explain-title">
+  <h2 id="explain-title">How is this calculated?</h2>
+  <p class="muted small">Six factors, each normalised to 0 to 1 and capped, then weighted. These numbers are live.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th scope="col">Factor</th><th scope="col">What is counted</th><th scope="col" class="num">Raw</th><th scope="col" class="num">Cap</th><th scope="col" class="num">Weight</th><th scope="col" class="num">Points</th></tr></thead>
+      <tbody id="explain-rows"></tbody>
+      <tfoot><tr><td colspan="5">Friction score (sum of points, rounded)</td><td class="num" id="explain-total">0</td></tr></tfoot>
+    </table>
+  </div>
+  <p><code>score = round( 30·min(I/40,1) + 20·min(W/300,1) + 15·min(K/8,1) + 10·min(V/10,1) + 10·min(C/0.30,1) + 15·min(M/4,1) )</code></p>
+  <ul>
+    <li>Measured from the live page (DOM), every time something changes. The meter itself is not counted.</li>
+    <li>This is a heuristic, not a medical or scientific measurement of fatigue. The weights are design judgements.</li>
+    <li>Not counted: the meter and this dialog, toasts, the skip link and the footer's data controls. Content scrolled off-screen still counts.</li>
+    <li>With reduced motion turned on, the ticking clock and pulses stop, so the High screen scores lower. The Calm lens lowers the score too, because it really removes colour and motion. The Dyslexia and Low-vision lenses barely move it: the meter measures structure, not perception.</li>
+  </ul>
+  <div class="dlg-actions"><button type="button" class="btn btn-primary" id="explain-close">Close</button></div>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
