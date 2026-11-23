@@ -12,9 +12,9 @@
 [data-energy="low"] { --fs-base: 1.375rem; --gap: 2rem; --radius-card: 28px; --fs-sm: 1.0625rem; }
 
 /* Normal: palette minus rose/dusk; chips go neutral */
-[data-energy="normal"] { --rose: #5E554A; --dusk: #5E554A; }
+[data-energy="normal"] { --rose: #9A8E7C; --dusk: #9A8E7C; }
 /* Low: ink, surface, clay, sage only */
-[data-energy="low"] { --rose: #5E554A; --dusk: #5E554A; --plum: #5E554A; --ochre: #5E554A; }
+[data-energy="low"] { --rose: #9A8E7C; --dusk: #9A8E7C; --plum: #9A8E7C; --ochre: #9A8E7C; }
 [data-energy="normal"] .chip { background: var(--surface-2); color: var(--ink-2); }
 
 /* ambient motion exists only in High */

@@ -3,11 +3,18 @@
 #lv-vignette { display: none; }
 .lens-lowvision #lv-vignette {
   display: block; position: fixed; inset: 0; pointer-events: none; z-index: 50;
-  background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(43,38,32,.55) 100%);
+  background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(6,4,3,.7) 100%);
 }
 
 /* Dyslexia-friendly */
 .lens-dyslexia {
+  /* dyslexia lens = warm light paper (dark text on cream reads best for many readers) */
+  color-scheme: light;
+  --bg: #FBF3DF; --surface: #FFFDF8; --surface-2: #EFE7D9; --line: #E4DACB; --ink: #2B2620; --ink-2: #5E554A;
+  --clay: #A9502E; --clay-strong: #94441F; --on-clay: #fff; --clay-soft: #F3DDD2; --sage: #3F7A45; --sage-soft: #DDE9DC; --focus: #A9502E;
+  --ok: #3F7A45; --warn: #9A6B00; --hot: #A9502E;
+  --glass: none; --edge: #E4DACB; --edge-hi: #CDBFA9; --glow-clay: transparent; --glow-sage: transparent;
+  --shadow-1: 0 1px 2px rgba(43,38,32,.08); --shadow-2: 0 6px 20px -8px rgba(43,38,32,.2);
   --font-body: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
   --font-display: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
   --lh: 1.8;
@@ -20,7 +27,7 @@
 /* Calm */
 .lens-calm #app, .lens-calm #app *, .lens-calm #app *::before, .lens-calm #app *::after { animation: none !important; transition-duration: .01ms !important; }
 .lens-calm [data-fx-noise] { display: none !important; }
-.lens-calm { --ochre: #5E554A; --sage: #5E554A; --plum: #5E554A; --dusk: #5E554A; --rose: #5E554A; }
+.lens-calm { --ochre: #9A8E7C; --sage: #9A8E7C; --plum: #9A8E7C; --dusk: #9A8E7C; --rose: #9A8E7C; }
 .lens-calm .chip, .lens-calm .habit-chip[aria-pressed="true"] { background: var(--surface-2); border-color: var(--line); color: var(--ink-2); }
 .lens-calm .intro { background: var(--surface-2); border-color: var(--line); }
 .lens-calm .lens-banner { background: var(--surface-2); border-color: var(--line); }
@@ -32,3 +39,17 @@
 .lens-keyboard #screen, .lens-keyboard .tabs { pointer-events: none; cursor: none; }
 .lens-keyboard :focus-visible { outline: 4px solid var(--clay); outline-offset: 3px; box-shadow: none; }
 .lens-keyboard .skip { top: 12px; }
+
+/* light paper for the dyslexia lens: strip the night-time effects */
+.lens-dyslexia body { background: var(--bg-dyslexia); }
+.lens-dyslexia body::before, .lens-dyslexia body::after, .lens-dyslexia .card::before, .lens-dyslexia .app-header::after { display: none; }
+.lens-dyslexia .btn-primary, .lens-dyslexia .progress-fill, .lens-dyslexia .bar, .lens-dyslexia .bar.today, .lens-dyslexia .energy-thumb { background-image: none; }
+.lens-dyslexia .energy-thumb { background: var(--surface); }
+.lens-dyslexia .energy-track, .lens-dyslexia .field, .lens-dyslexia .progress, .lens-dyslexia .tip-card { background: var(--surface-2); }
+.lens-dyslexia .field { background: var(--surface); }
+.lens-dyslexia .intro, .lens-dyslexia .focus-big, .lens-dyslexia .one-task { background: var(--surface); box-shadow: var(--shadow-1); }
+.lens-dyslexia .tabs a[aria-current="page"] { background: var(--clay-soft); color: var(--ink); }
+.lens-dyslexia .energy-track input:checked + label { color: var(--ink); }
+.lens-dyslexia .ring .arc, .lens-dyslexia .focus-ring .arc { filter: none; }
+.lens-dyslexia .ring .track, .lens-dyslexia .focus-ring .track { stroke: var(--line); }
+.lens-dyslexia .tabs { background: transparent; }
