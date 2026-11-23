@@ -3,7 +3,7 @@
 **Productivity that gets lighter when you do.** A tiny planner (Today, Habits, Focus) that measures its own friction live and simplifies itself to match your energy.
 
 - Live demo: `https://<your-github-username>.github.io/easeos/` (GitHub Pages, root of `main`)
-- Screenshot: `assets/og-image.png` (High, Friction 82, beside Low, Friction 16)
+- Screenshot: `assets/og-image.png` (High, Friction 83, beside Low, Friction 16)
 
 ## The 10-second idea
 A Friction Meter scores how heavy the screen is. Slide **Energy** to Low and the app shrinks to one task. The score drops, and you can see why.
@@ -28,7 +28,7 @@ Measured from the live DOM under `#app` on every change (MutationObserver, debou
 
 `score = round(30*min(I/40,1) + 20*min(W/300,1) + 15*min(K/8,1) + 10*min(V/10,1) + 10*min(C/0.30,1) + 15*min(M/4,1))`
 
-Measured on the seeded demo: **High 82, Normal 41, Low 16** (Reduced-motion High: 71; Calm lens on High: 66). Weights were never tuned to hit these numbers; the seed content was. Run `easeosFriction()` in the console for the factor table.
+Measured on the seeded demo: **High 83, Normal 41, Low 16** (Reduced-motion High: 71; Calm lens on High: 66). Weights were never tuned to hit these numbers; the seed content was. Run `easeosFriction()` in the console for the factor table.
 
 **It is a heuristic**, not a medical or scientific measure of fatigue. The weights are design judgements. The meter excludes itself (ring, dialog, toasts), the skip link and the footer's data controls, and counts content scrolled off-screen.
 
